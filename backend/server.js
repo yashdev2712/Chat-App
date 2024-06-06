@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import authRoutes from "./Routes/authroutes.js"
 import connectToDb from "./db/db.js";
+import messageRoutes from "./Routes/messageroutes.js"
 
 
 dotenv.config();
@@ -18,7 +19,9 @@ app.get("/", (req, res) => {
     res.send("hii yashu you are awsome");
 })
 
-app.use("/api/auth", authRoutes)
+app.use("/api/auth", authRoutes);
+
+app.use("api/message",messageRoutes);
 
 app.listen(PORT, () => {
     connectToDb();
