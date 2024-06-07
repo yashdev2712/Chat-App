@@ -1,7 +1,7 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const conversationSchmea = new mongoose.Schema({
-    participant: [
+    participants: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
