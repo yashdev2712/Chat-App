@@ -1,7 +1,10 @@
 import React from 'react'
 import Conversation from './Conversation'
+import useGetConversation from '../../hooks/useGetConversation'
 
 function Conversations() {
+    const { loading, conversation } = useGetConversation();
+    console.log(conversation);
     return (
         <>
             <div className='py-2 flex flex-col overflow-auto'>
@@ -9,7 +12,7 @@ function Conversations() {
                 <Conversation />
                 <Conversation />
                 <Conversation />
-               
+
             </div>
         </>
     )
