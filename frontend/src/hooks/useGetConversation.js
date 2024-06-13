@@ -14,6 +14,7 @@ const useGetConversation = () => {
                     throw new Error(data.error)
                 }
                 setConversation(data);
+                
             }
             catch (error) {
                 toast.error(error.message);
