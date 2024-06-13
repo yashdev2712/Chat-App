@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import MessageSkeleton from "../skeleton/messageSkeleton"
 import useGetMessage from '../../hooks/useGetMessage';
 import Messages from "../Messages/Messages"
 
 function Message() {
     const { messages, loading } = useGetMessage();
-    console.log(messages);
+    const lastMessage = useRef();
+
+    useEffect(() => {
+        setTimeout(() => { lastMessage.current?.scrollIntoView({ behavior: "smooth" }) }, 100)
+    }, [messages]);
+
     return (
         <div className='px-4 flex-1 overflow-auto custom-scrollbar'>
             {
                 !loading && messages.length > 0 && messages.map((message) => (
-                    <Messages key={message._id} message={message} />))
+                    <div key={message._id} ref={lastMessage}>
+                        <Messages message={message} />
+                    </div>
+                ))
             }
 
             {
