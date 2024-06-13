@@ -13,13 +13,12 @@ function Conversation({ conversation, lastIdx }) {
 
                 <div className='avatar online'>
                     <div className='h-8 w-8'>
-                        <img src={conversation.profilePic} alt="user avatar" className='h-full w-full object-cover' /> {/* Adjust image size */}
+                        <img src={conversation.profilePic} alt="user avatar" className='h-full w-full object-cover' />
                     </div>
                 </div>
                 <div className='flex flex-1 flex-col '>
                     <div className='flex gap-3 justify-between'>
                         <p className='font-bold text-gray-200'>{conversation.fullName}</p>
-                        {/* <span className='text-xl'>{getRandomEmoji()}</span> */}
                     </div>
                 </div>
             </div>
