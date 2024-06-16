@@ -5,11 +5,11 @@ import connectToDb from "./db/db.js";
 import messageRoutes from "./Routes/messageroutes.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./Routes/userRoutes.js"
-
+import { app, server } from "./socket/socket.js";
 
 dotenv.config();
 
-const app = express();
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -22,9 +22,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/api/users",userRoutes);
+app.use("/api/users", userRoutes);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connectToDb();
     console.log("Server is running on port:", PORT);
 });
