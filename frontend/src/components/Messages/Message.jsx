@@ -1,37 +1,28 @@
-import React, { useEffect, useReducer, useRef } from 'react';
-import MessageSkeleton from "../skeleton/messageSkeleton"
-import useGetMessage from '../../hooks/useGetMessage';
-import Messages from "../Messages/Messages"
+import { useAuthContext } from "../../context/AuthContext";
+import { extractTime } from "../../utils/extractTime";
+import useConversation from "../../store/useConverstion";
 
-function Message() {
-    const { messages, loading } = useGetMessage();
-    const lastMessage = useRef();
+const Message = ({ message }) => {
+	const { authUser } = useAuthContext();
+	const { selectedConversation } = useConversation();
+	const fromMe = message.senderId === authUser._id;
+	const formattedTime = extractTime(message.createdAt);
+	const chatClassName = fromMe ? "chat-end" : "chat-start";
+	const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+	const bubbleBgColor = fromMe ? "bg-blue-500" : "";
 
-    useEffect(() => {
-        setTimeout(() => { lastMessage.current?.scrollIntoView({ behavior: "smooth" }) }, 100)
-    }, [messages]);
+	const shakeClass = message.shouldShake ? "shake" : "";
 
-    return (
-        <div className='px-4 flex-1 overflow-auto custom-scrollbar'>
-            {
-                !loading && messages.length > 0 && messages.map((message) => (
-                    <div key={message._id} ref={lastMessage}>
-                        <Messages message={message} />
-                    </div>
-                ))
-            }
-
-            {
-                loading && [...Array(3)].map((_, id) => <MessageSkeleton key={id} />)
-            }
-
-            {
-                !loading && messages.length === 0 &&
-                (<p className='text-center'> Send a message to start the conversation</p>)
-            }
-
-        </div>
-    );
-}
-
+	return (
+		<div className={`chat ${chatClassName}`}>
+			<div className='chat-image avatar'>
+				<div className='w-10 rounded-full'>
+					<img alt='Tailwind CSS chat bubble component' src={profilePic} />
+				</div>
+			</div>
+			<div className={`chat-bubble text-white ${bubbleBgColor} ${shakeClass} pb-2`}>{message.message}</div>
+			<div className='chat-footer opacity-50 text-xs flex gap-1 items-center'>{formattedTime}</div>
+		</div>
+	);
+};
 export default Message;

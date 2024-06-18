@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Message from './Message';
+import Messages from './Messages';
 import MessageInput from './MessageInput';
 import { TiMessages } from "react-icons/ti";
 import useConversation from '../../store/useConverstion';
@@ -8,7 +8,7 @@ function MessageContainer() {
     const { selectedConversation, setSelectedConversation } = useConversation();
 
     useEffect(() => {
-        return () => setSelectedConversation(null)  //cleaner function
+        return () => setSelectedConversation(null)  
     }, []);
 
     return (
@@ -20,7 +20,7 @@ function MessageContainer() {
                         <span className='label-text '>To:</span>
                         <span className='text-gray-900'>{selectedConversation.fullName}</span>
                     </div>
-                    <Message />
+                    <Messages />
                     <MessageInput />
                 </>
             )}
